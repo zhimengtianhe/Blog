@@ -1,5 +1,5 @@
 <template>
-	<div class="Faith">
+	<div class="Faith" v-bind:style="{backgroundImage:'url('+motto.Image+')'}">
 		<div class="content">
 			<!--left-->
 			<div class="Left">
@@ -12,13 +12,6 @@
 				</div>
 			</div>
 			<!--left end-->
-			<!--right-->
-			<div class="Right">
-				<div class="right_log" v-bind:style="{backgroundImage:'url('+motto.Image+')'}">
-					<div class="Times">{{Time}}s >首页</div>
-				</div>
-			</div>
-			<!--right end-->
 		</div>
 	</div>
 </template>
@@ -46,29 +39,31 @@ import axios from 'axios'
 	  			this.Time--;
 	  			if(this.Time===0){
 	  				clearInterval(timer);
-	  				//this.$router.push({path:'/index'})
+	  					this.$router.push({path:'/Index'})
 	  			}
-	  		},1000);
-	  		
-	  		//获取诗词
-	  		axios.post('/api/user/poetry')
-	  	
-	  		.then(response=>{
-	  			let leng=response.data.length;
-	  			let num=Math.ceil(Math.random()*leng-1);
-	  			console.log(response.data[num]);
-	  			this.motto.cn=response.data[num].cn;
-				this.motto.en=response.data[num].en;
-				this.motto.author=response.data[num].author;
-				this.motto.Image=response.data[num].image;
-	  		})
-	  		.catch(error=>{
-          		console.log(error);
-          		alert('破电脑砸了吧');
-      		})
+			  },1000);
+			  
+	  		//获取诗词Callback
+	  		this.poetry();
 	  	},
 	  	methods:{
-	  	
+			//获取诗词
+			poetry:function(){
+				axios.post('/api/user/poetry')
+				.then(response=>{
+					let leng=response.data.length;
+					let num=Math.ceil(Math.random()*leng-1);
+					console.log(response.data[num]);
+					this.motto.cn=response.data[num].cn;
+					this.motto.en=response.data[num].en;
+					this.motto.author=response.data[num].author;
+					this.motto.Image=response.data[num].image;
+				})
+				.catch(error=>{
+					console.log(error);
+					alert('破电脑砸了吧');
+				})
+			}
 	  	}
 	}
 </script>
@@ -78,10 +73,9 @@ import axios from 'axios'
 	position: fixed;
 	width: 100%;
 	height:100%;
-	background: url(../assets/Faith_bg.jpg) no-repeat;
-	background-size: cover;
-	background-position: center;
-
+	background:no-repeat;
+	background-size:cover;
+	background-position: center;	
 	.content{
 		position: relative;
 		width: 1200px;
@@ -99,6 +93,7 @@ import axios from 'axios'
 				background-size: cover;
 			}
 			.motto{
+				color:purple;
 				margin-top: 150px;
 				h3{
 					text-align: right;
@@ -111,24 +106,6 @@ import axios from 'axios'
 					margin-top: 20px;
 					width: 75%;
 					text-align: left;
-				}
-			}
-			
-		}
-		.Right{
-			width: 50%;
-			height: 600px;
-			float: right;
-			.right_log{
-				width: 500px;
-				height: 600px;
-				/*background: url(../assets/Faith.jpg) no-repeat;*/
-				background: no-repeat center top;
-				background-size:cover;
-				.Times{
-					color: white;
-					position: absolute;
-					margin-left: 430px;
 				}
 			}
 			

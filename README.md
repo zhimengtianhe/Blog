@@ -140,7 +140,7 @@ http {
     #gzip  on;
 	server {
         listen      80;
-        server_name  39.106.188.169;
+        server_name  你的ip;
 
         #charset koi8-r;
 
@@ -190,7 +190,7 @@ http {
      }
      server {
         listen      8080;
-        server_name  39.106.188.169;
+        server_name 你的ip;
 
         location / {
             root   /;

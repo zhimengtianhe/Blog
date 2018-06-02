@@ -1,7 +1,7 @@
 import App from '../App'
 const Login = r => require.ensure([], () => r(require('../components/Login.vue')), 'Login')
 const Faith = r => require.ensure([], () => r(require('../components/Faith.vue')), 'Faith')
-const index = r => require.ensure([], () => r(require('../components/index.vue')), 'index')
+const Index = r => require.ensure([], () => r(require('../components/index.vue')), 'Index')
 
 export default [{
     path: '/',
@@ -20,8 +20,8 @@ export default [{
             component: Faith
         },
         {
-            path: '/index',
-            component: index
+            path: '/Index',
+            component: Index
         }
     ] 
 }]

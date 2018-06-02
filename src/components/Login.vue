@@ -2,28 +2,29 @@
 	  <div class="Login">
 			  <div class="content">
 					    <input type="text" placeholder="userName" name="username" v-model="userName"> <br>
-					    <input type="text" placeholder="password" name="password" v-model="password"> <br>
+					    <input type="text" placeholder="password" name="password" v-model="password" @keydown="submit($event)"> <br>
 					    <button @click="Login('/Faith')" class="Sign_in">登录</button><br />
-				  		<a href="javascript:;" @click="addUser">注册</a>
+				  		<a href="javascript:;" @click="addUser" >注册</a>
 			  </div>
 	  </div>
 </template>
 
 <script>
 export default {
-	  name: 'Login',
-	  data () {
+	    name: 'Login',
+	    data () {
 		    return {
 		      	msg: '不疯魔不成活',
 		      	userName: '',
 		      	password: '',
 		      	aboutData:[]
 		    }
-	  },
-	  created(){
+	    },
+	    created(){
 	  	
-	  },
-	  methods: {
+	    },
+		  
+	    methods: {
 	  		//注册
 		    addUser() {
 		    		if(this.userName==='' || this.password===''){
@@ -72,8 +73,13 @@ export default {
 				        	  this.$router.push(path);
 				        }
 		      	})
-		    }
-    }
+			},
+			submit(e){
+				if(e.keyCode === 13){
+					this.Login('/Faith');
+				}
+  			}
+    	}
 }
 </script>
 
@@ -83,7 +89,7 @@ export default {
 				position: fixed;
 				width: 100%;
 				height:100%;
-				background: url(../assets/1.jpg) no-repeat;
+				background: url(../assets/Login_bg.jpg) no-repeat;
 				background-size: cover;
 				background-position: center;
 				margin:  0 auto;
