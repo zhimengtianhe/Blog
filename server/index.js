@@ -19,7 +19,7 @@ app.get('*', function (req, res) {
   res.send(html)
 })
 
-app.listen(3000,()=>{
+app.listen(8081,()=>{
 	console.log('vue+express -- 不疯魔不成活')
 });
 

@@ -52,6 +52,7 @@ import axios from 'axios'
 	  		
 	  		//获取诗词
 	  		axios.post('/api/user/poetry')
+	  	
 	  		.then(response=>{
 	  			let leng=response.data.length;
 	  			let num=Math.ceil(Math.random()*leng-1);
@@ -94,7 +95,7 @@ import axios from 'axios'
 			.left_log{
 				width: 150px;
 				height: 150px;
-				background:url(../assets/left_log.jpg);
+				background:url(../assets/LeftLog.png);
 				background-size: cover;
 			}
 			.motto{
