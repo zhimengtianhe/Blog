@@ -4,9 +4,9 @@
   		<router-view ></router-view>
 		</transition>
 		<!--http://up.mcyt.net/md5/53/NTAyNzg1_Qq4329912.mp3-->
-		<audio class="success"
-      <!--src="./src/assets/huimeng.mp3" autoplay loop>-->
-		</audio>
+		<!-- <audio class="success"
+        src="./src/assets/huimeng.mp3" autoplay loop>
+		</audio> -->
   </div>
 </template>
 
@@ -22,13 +22,22 @@ export default {
 </script>
 
 <style>
-*{margin: 0; padding: 0;}
+html,body{
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   overflow: hidden;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  list-style: none;
 }
 .fade-enter {
   opacity:0;
