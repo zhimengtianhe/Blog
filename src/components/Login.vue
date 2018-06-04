@@ -2,7 +2,7 @@
 	  <div class="Login">
 			  <div class="content">
 					    <input type="text" placeholder="userName" name="username" v-model="userName"> <br>
-					    <input type="text" placeholder="password" name="password" v-model="password" @keydown="submit($event)"> <br>
+					    <input type="password" placeholder="password" name="password" v-model="password" @keydown="submit($event)"> <br>
 					    <button @click="Login('/Faith')" class="Sign_in">登录</button><br />
 				  		<a href="javascript:;" @click="addUser" >注册</a>
 			  </div>

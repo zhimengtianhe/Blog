@@ -32,19 +32,10 @@ import axios from 'axios'
 	    	}
 	  	},
 	  	mounted(){
-       
 	  	},
 	  	created(){
-	  		let timer=setInterval(()=>{
-	  			this.Time--;
-	  			if(this.Time===0){
-	  				clearInterval(timer);
-	  					this.$router.push({path:'/Index'})
-	  			}
-			  },1000);
-			  
 	  		//获取诗词Callback
-	  		this.poetry();
+			this.poetry();
 	  	},
 	  	methods:{
 			//获取诗词
@@ -58,13 +49,41 @@ import axios from 'axios'
 					this.motto.en=response.data[num].en;
 					this.motto.author=response.data[num].author;
 					this.motto.Image=response.data[num].image;
+
+					new Promise((reslove, reject) => {
+						let img = new Image();
+						img.src = response.data[num].image;
+						console.log(img.src);
+						img.onload=()=>{
+							reslove();
+						}
+					}).then(reslove=>{
+						//路由跳转Callback
+						this.Router();
+					}).catch(reject=>{
+					
+					});
+
 				})
 				.catch(error=>{
 					console.log(error);
 					alert('破电脑砸了吧');
-				})
+				})	  
+			},
+			//路由跳转
+			Router:function(){
+				this.timer=setInterval(()=>{
+					this.Time--;
+					if(this.Time===0){
+						clearInterval(this.timer);
+						this.$router.push({path:'/Index'})
+					}
+				},1000);
 			}
-	  	}
+		},
+		destroyed(){
+			clearInterval(this.timer);
+        }
 	}
 </script>
 

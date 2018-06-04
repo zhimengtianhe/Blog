@@ -12,15 +12,22 @@ const db = mysql.createPool({
 	port:'3306'
 });
 
-// 注册
+
+let $sql = {
+    // 注册
+    user: {
+        add: 'insert into user( username, password) values ( ?, ?)',
+        select_name: 'SELECT * from user where username = ?',    
+        select_password: 'SELECT * from user where password = ?' 
+    },
+
+    //获取诗词
+    poetry:{
+        get_poetry:'SELECT * FROM poetry'
+    }
+}
 router.post('/addUser', (req, res) => {
-	let $sql = {
-   		user: {
-	        add: 'insert into user( username, password) values ( ?, ?)',
-	        select_name: 'SELECT * from user where username = ?',    
-	        select_password: 'SELECT * from user where password = ?' 
-    	}
-	}
+	
     let sql_name = $sql.user.select_name
     let sql = $sql.user.add;
     let params = req.body;
@@ -49,14 +56,7 @@ router.post('/addUser', (req, res) => {
 
 //登录
 router.post('/selectUser', (req,res) => {
-	let $sql = {
-   		user: {
-	        add: 'insert into user( username, password) values ( ?, ?)',
-	        select_name: 'SELECT * from user where username = ?',    
-	        select_password: 'SELECT * from user where password = ?'     
-    	}
-	}
-	
+
     let sql_name = $sql.user.select_name;
     let sql_password = $sql.user.select_password;
     let params = req.body;
@@ -84,8 +84,8 @@ router.post('/selectUser', (req,res) => {
 
 //获取诗词
 router.post('/poetry',(req,res) => {
-	let sql='SELECT * FROM poetry';
-	db.query(sql,(error,data)=>{
+	let get_poetry=$sql.poetry.get_poetry;
+	db.query(get_poetry,(error,data)=>{
 		if(error){
 			console.log(error);
 		}else{
