@@ -30,14 +30,13 @@ html,body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   overflow: hidden;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -khtml-user-select: none;
   user-select: none;
-  list-style: none;
+  
 }
 .fade-enter {
   opacity:0;

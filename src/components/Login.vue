@@ -94,6 +94,7 @@ export default {
 				background-position: center;
 				margin:  0 auto;
 				overflow: hidden;
+				text-align: center;
 		}
 		.content{
 				position: relative;

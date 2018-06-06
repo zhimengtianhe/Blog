@@ -1,59 +1,42 @@
 <template>
-	<div class="Index">
+	<div class="Article">
 		<div class="content">
 			<Left></Left>
 			<div class="Right">
-				<ul>
-					<li @click="GoArticle()" v-for="(Art,index) in Articles">{{Art.text}}</li>
-				</ul>
+				<h1>文章页</h1>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	//to="Article/111"
 	import Left from "./common/Left.vue";
 	export default{
-		name: 'Index',
+		name: 'Article',
 		components:{
     		Left
  		},
 	  	data () {
 	    	return {
-				Articles: [
-					{
-						text: '文章1'
-					},
-					{
-						text: '文章2'
-					},
-					{
-						text: '文章3'
-					},
-				],
-				param:'111'
+				
 	    	}
 		},
 		mounted(){
-       
+      		
 		},
 		created(){
-			
+			var param =this.$route.query.id;
+			console.log(param);
 		},
 		methods:{
-			GoArticle:function(){
-				this.$router.push({path:'/Article',query:{id:1}});
-			}
-		},
-		destroyed(){
-
-       	},
+			
+		}
+		
 	}
 </script>
 
 <style lang="scss" scoped>
-	.Index{
+	.Article{
 		overflow: hidden;
 		height: 100%;
 		.content{
@@ -63,11 +46,6 @@
 				width: 74%;
 				height: 2000px;
 				float: right;
-				ul{
-					li{
-						list-style: none;
-					}
-				}
 			}
 		}
 	}

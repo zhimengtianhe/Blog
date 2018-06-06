@@ -77,13 +77,14 @@ import axios from 'axios'
 					if(this.Time===0){
 						clearInterval(this.timer);
 						this.$router.push({path:'/Index'})
+						
 					}
 				},1000);
 			}
 		},
 		destroyed(){
 			clearInterval(this.timer);
-        }
+       	},
 	}
 </script>
 
