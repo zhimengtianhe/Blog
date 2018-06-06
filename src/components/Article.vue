@@ -43,9 +43,9 @@
 			height: 100%;
 			overflow: hidden;
 			.Right{
-				width: 74%;
+				width: 70%;
 				height: 2000px;
-				float: right;
+				margin-left: 27%;
 			}
 		}
 	}

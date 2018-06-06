@@ -4,7 +4,11 @@
 			<Left></Left>
 			<div class="Right">
 				<ul>
-					<li @click="GoArticle()" v-for="(Art,index) in Articles">{{Art.text}}</li>
+					<li @click="GoArticle()" 
+						v-for="(Art,index) in Articles">
+						<h2>{{Art.title}}</h2>
+						<p>{{Art.text}}</p>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -23,13 +27,16 @@
 	    	return {
 				Articles: [
 					{
-						text: '文章1'
+						title: 'React-Native Window 搭建开发环境',
+						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）...'
 					},
 					{
-						text: '文章2'
+						title: '使用vue-cli+node+express+mysql搭建一个 个人博客',
+						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本  ...'
 					},
 					{
-						text: '文章3'
+						title: '如何将个人博客发布到个人服务器    CentOS7',
+						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）...'
 					},
 				],
 				param:'111'
@@ -60,12 +67,23 @@
 			height: 100%;
 			overflow: hidden;
 			.Right{
-				width: 74%;
+				width: 70%;
 				height: 2000px;
-				float: right;
+				margin-left: 27%;
 				ul{
 					li{
 						list-style: none;
+						cursor: pointer;
+						margin: 50px 0px 50px 80px;
+						h2{
+							font-weight:normal;
+						}
+						p{
+						    font-size: 14px;
+						    color: #999;
+						    margin: -10px 0 0 20px;
+						    width: 70%;
+						}
 					}
 				}
 			}
