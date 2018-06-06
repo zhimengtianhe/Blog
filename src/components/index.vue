@@ -4,9 +4,8 @@
 			<Left></Left>
 			<div class="Right">
 				<ul>
-					<li @click="GoArticle()" 
-						v-for="(Art,index) in Articles">
-						<h2>{{Art.title}}</h2>
+					<li v-for="(Art,index) in Articles[0]">
+						<h2><router-link :to="{ path:'Article', query:{id: Art.id}}">{{Art.title}}</router-link></h2>
 						<p>{{Art.text}}</p>
 					</li>
 				</ul>
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-	//to="Article/111"
+	import axios from 'axios'
 	import Left from "./common/Left.vue";
 	export default{
 		name: 'Index',
@@ -26,32 +25,28 @@
 	  	data () {
 	    	return {
 				Articles: [
-					{
-						title: 'React-Native Window 搭建开发环境',
-						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）...'
-					},
-					{
-						title: '使用vue-cli+node+express+mysql搭建一个 个人博客',
-						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本  ...'
-					},
-					{
-						title: '如何将个人博客发布到个人服务器    CentOS7',
-						text:'以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）;以下是环境配置问题,安装 node.js,安装Android Studio 最新版本（其实就是为了后来按 Android SDK）...'
-					},
+				
 				],
-				param:'111'
 	    	}
 		},
 		mounted(){
        
 		},
 		created(){
-			
+			this.Article();
 		},
 		methods:{
-			GoArticle:function(){
-				this.$router.push({path:'/Article',query:{id:1}});
-			}
+			Article:function(){
+				axios.post('/api/user/Article')
+				.then(response=>{
+					
+					this.Articles.push(response.data);
+				})
+				.catch(error=>{
+					console.log(error);
+					alert('破电脑砸了吧');
+				})	  
+			},
 		},
 		destroyed(){
 
@@ -73,10 +68,13 @@
 				ul{
 					li{
 						list-style: none;
-						cursor: pointer;
 						margin: 50px 0px 50px 80px;
 						h2{
 							font-weight:normal;
+							a{
+								color: #000;
+								text-decoration: none;
+							}
 						}
 						p{
 						    font-size: 14px;

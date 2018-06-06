@@ -24,6 +24,11 @@ let $sql = {
     //获取诗词
     poetry:{
         get_poetry:'SELECT * FROM poetry'
+    },
+    
+    //博客列表
+    Article:{
+    	get_Article:'SELECT * FROM Article'
     }
 }
 router.post('/addUser', (req, res) => {
@@ -93,6 +98,20 @@ router.post('/poetry',(req,res) => {
 		}
 	})
 })
+
+
+//文章列表
+router.post('/Article',(req,res) => {
+	let get_Article=$sql.Article.get_Article;
+	db.query(get_Article,(error,data)=>{
+		if(error){
+			console.log(error);
+		}else{
+			res.send(data).end();
+		}
+	})
+})
+
 
 
 module.exports = router;

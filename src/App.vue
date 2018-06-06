@@ -25,6 +25,7 @@ export default {
 html,body{
   padding: 0;
   margin: 0;
+ 
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -36,6 +37,7 @@ html,body{
   -ms-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  
   
 }
 .fade-enter {
