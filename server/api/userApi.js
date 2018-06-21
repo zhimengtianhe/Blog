@@ -5,7 +5,7 @@ const mysql = require('mysql');
 // 连接数据库
 //39.106.188.169
 const db = mysql.createPool({
-    host:'39.106.188.169',
+    host:'localhost',
 	user:'root',
 	password:'hanchao',
 	database:'vue_study',
@@ -28,7 +28,8 @@ let $sql = {
     
     //博客列表
     Article:{
-    	get_Article:'SELECT * FROM Article'
+    	get_Article:'SELECT * FROM Article',
+    	Article_con: 'SELECT * from Article where id = ?',    
     }
 }
 router.post('/addUser', (req, res) => {
@@ -77,7 +78,7 @@ router.post('/selectUser', (req,res) => {
                     console.log(err)
                 }
                 if(result[0]===undefined) {
-                    res.send('0')    
+                    res.send('0')   //查询不到密码 
                 }else {
                     res.send(result);
                 }
@@ -111,6 +112,23 @@ router.post('/Article',(req,res) => {
 		}
 	})
 })
+
+//获取文章 对应内容
+router.post('/Article_con',(req,res)=>{
+	let Article_con = $sql.Article.Article_con;
+	let params = parseInt(req.body);
+	console.log(params);
+	
+	db.query(Article_con,params,function(err,result) {
+        if(err) {
+            console.log(err)
+        }else{
+        	res.send(result);
+        }
+        
+    })
+})
+
 
 
 

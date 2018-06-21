@@ -73,12 +73,12 @@ export default {
 				        	  this.$router.push(path);
 				        }
 		      	})
-			},
-			submit(e){
-				if(e.keyCode === 13){
-					this.Login('/Faith');
-				}
-  			}
+				},
+				submit(e){
+						if(e.keyCode === 13){
+							this.Login('/Faith');
+						}
+	  		}
     	}
 }
 </script>

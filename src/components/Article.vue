@@ -2,14 +2,15 @@
 	<div class="Article">
 		<div class="content">
 			<Left></Left>
-			<div class="Right">
-				<h1>文章页</h1>
+			<div class="Right" v-html="con">
+				
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import axios from 'axios'
 	import Left from "./common/Left.vue";
 	export default{
 		name: 'Article',
@@ -18,24 +19,39 @@
  		},
 	  	data () {
 	    	return {
-				
+				msg:[
+		            
+            	],
+            	con:''
 	    	}
 		},
 		mounted(){
       		
 		},
 		created(){
-			var param =this.$route.query.id;
-			console.log(param);
+			let param =this.$route.query.id;
+			this.msg.push(param);
+			
+			this.Apost();
 		},
 		methods:{
-			
+			Apost:function(){
+				axios.post('/api/user/Article_con',this.msg)
+				.then((response)=>{
+                    console.log(response.data);
+                    this.con=response.data[0].content;
+                })
+                .catch((error)=>{
+                    console.log('error');
+                    alert('服务器没有链接成功')
+                })
+			}
 		}
 		
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.Article{
 		overflow: hidden;
 		height: 100%;
@@ -43,9 +59,34 @@
 			height: 100%;
 			overflow: hidden;
 			.Right{
-				width: 70%;
-				height: 2000px;
+				width: 55%;
 				margin-left: 27%;
+				overflow: hidden;
+				padding-bottom: 50px;
+				.RightCon{
+					h4{
+						color: #c7c7c7;
+					}
+					.TechnicalAreaTitle{
+						color: #6f8fd2;
+					}
+					.TechnicalAreaCon{
+						background: #f2f8ff;
+						color: #666;
+						font-size: 14px;
+						padding:20px;
+						-moz-user-select:text;
+					  	-webkit-user-select: text;
+					  	-ms-user-select: text;
+					  	-khtml-user-select: text;
+					  	user-select: text;
+						p{
+							margin: 0;
+							margin-bottom: 5px;
+						}
+					}
+				}
+				
 			}
 		}
 	}

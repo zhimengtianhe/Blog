@@ -252,3 +252,12 @@ http {
 
 
 
+CREATE TABLE `Article_con` (
+  `Article_id` int(100) NOT NULL AUTO_INCREMENT,
+  `Article_title` varchar(200) DEFAULT NULL,
+  `content` varchar(400) DEFAULT NULL,
+  PRIMARY KEY (`Article_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `Article_con` VALUES ('1', '安装', 'npm install');
