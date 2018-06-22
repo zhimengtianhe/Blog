@@ -4,76 +4,88 @@
 			<Left></Left>
 			<div class="Right">
 				<div class="RightCon">
-					<h4>React-Native 学习之路</h4>
-					<h1>React-Native 开发环境搭建技巧</h1>
+					<h4>伪全栈 学习之路<em> 2018 / 6 / 21</em></h4>
+					<h1>CentOS7 + Node + Express + Nginx + MySQL搭建</h1>
+					
 					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">安装Node</h3>
+						<h3 class="TechnicalAreaTitle">阿里云购买服务器 (爱去哪买去哪买)</h3>
 						<div class="TechnicalAreaCon">
-							<p>Node下载地址 : https://nodejs.org/en/ (个人安装的是 7.10.0版本);</p>
-							<p>安装之后 打开cmd 输入 node -v 查看版本号 , 若显示 , 则安装成功;</p>
+							<p>购买服务器 选择 操作系统  CentOS7</p>
 						</div>
 					</div>
 					
 					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">安装Python 2</h3>
+						<h3 class="TechnicalAreaTitle">安装 Xshell 5</h3>
 						<div class="TechnicalAreaCon">
-							<p>Python 2下载地址 : https://www.python.org/ (不支持Python 3);</p>
+							<p>Xshell 5下载地址 : http://www.downza.cn/soft/235505.html (能用就行去哪下载无所谓);</p>
+							<p>安装 Xshell 5 会让你操作 服务器的过程 更加开心;</p>
+							<p>打开 Xshell 5 点击新建  协议一栏 选择 SSH 在 主机 那一栏 添上个人 主机地址  点击确定;</p>
+							<p>点击连接 输入你的 用户名 (一般是  root) 点击确定 输入密码  在点击确定 连接成功;</p>
 						</div>
 					</div>
 					
 					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">安装Android Studio</h3>
+						<h3 class="TechnicalAreaTitle">Node 安装方法</h3>
 						<div class="TechnicalAreaCon">
-							<p>Android Studio下载地址 : http://www.android-studio.org/ (安装最新版本即可);</p>
-							<p>安装Android Studio 过程: 默认安装就行 ->Custom->Configure ->SDK Manager;</p>
+							<p>cd /usr/local/src/ (一般软件都放在这);</p>
+							<p>wget https://nodejs.org/dist/v7.10.0/node-v7.10.0.tar.gz (个人安装的7.10.0版本);</p>
+							<p>解压 : tar zxvf node-v7.10.0.tar.gz;</p>
+							<p>提示系统中没有安装C编译器，接下来先安装C编译器: yum install gcc , yum install gcc-c++ , yum install gcc-gfortran;</p>
+							<p>cd node-v7.10.0;</p>
+							<p>./configure (执行 Node.js 安装包自带的脚本，修改相关的系统配置文件);</p>
+							<p>make (编译 C源代码为 可执行的 Linux程序--->可能会贼慢不要急 睡一觉);</p>
+							<p>上面跑完之后 sudo make install (安装文件);</p>
+							<p>node –version (查看安装node的版本) npm -v (查看npm的版本);</p>
+							<p>如果上面 执行成功 则下面 简单的 玩一下 Express;</p>
+						</div>
+					</div>
+			
+					<div class="TechnicalArea">
+						<h3 class="TechnicalAreaTitle">安装 Express 玩一玩</h3>
+						<div class="TechnicalAreaCon">
+							<p>npm安装Express middleware 和 forever(一个用来确保应用程序启动并且在需要时重启的非常有用的模块);</p>
+							<p>npm install -gd express-generator forever;</p>
+							<p>
+								在/home 下分别执行(在哪都行) : </br>
+								&nbsp;&nbsp;&nbsp;&nbsp;express testapp , cd testapp , npm install;
+							</p>
+							<p>接着使用 forever 使用们的程序一直运行 : forever start ./bin/www;</p>
+							<p>
+								forever list (查看forever运行的程序);</br>
+								forever stop 0 (0代表前面[0],这是当前进程的ID);</br>
+								forever stopall (停止所有);
+							</p>
 						</div>
 					</div>
 					
 					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">安装JDK</h3>
+						<h3 class="TechnicalAreaTitle">安装Nginx (这是重点 拿小本本记下来)</h3>
 						<div class="TechnicalAreaCon">
-							<p>JDK下载地址 : http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html(需要1.8版本)</p>
+							<p>添加Nginx仓库 : yum install epel-release;</p>
+							<p>下载Nginx : yum install nginx;</p>
+							<p>启用Nginx服务 : service nginx start;</p>
+							<p>添加开机启动 : systemctl enable nginx;</p>
+							<p>修改Nginx配置文件 : vim /etc/nginx/nginx.conf;</p>
+							<p>配置 : </p>
+							<pre>upstream nodeweb-server{<br />&nbsp;&nbsp;server localhost:8081;<br />}<br />server {<br />&nbsp;&nbsp;listen       80 default_server;<br />&nbsp;&nbsp;listen       [::]:80 default_server;<br />&nbsp;&nbsp;server_name  你的域名或服务器ip;<br />&nbsp;&nbsp;root         /www;<br />&nbsp;&nbsp;# Load configuration files for the default server block.<br />&nbsp;&nbsp;include /etc/nginx/default.d/*.conf;<br /><br />&nbsp;&nbsp;location / {<br />&nbsp;&nbsp;&nbsp;&nbsp;root     /;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_pass http://nodeweb-server;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_redirect off;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header Host $http_host;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header X-Real-IP $remote_addr;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br />&nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header X-NginX-Proxy true;<br />&nbsp;&nbsp;}<br />}<br /></pre>                                                 
+							<p>测试配置文件是否能够正确运行 : nginx -t;</p>
+							<p>重启nginx : service nginx restart;</p>
+							<p>在浏览器中 输入 你的 服务器 ip Express 页面 即 大功告成;</p>
 						</div>
 					</div>
 					
 					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">Android SDK 详细问题</h3>
+						<h3 class="TechnicalAreaTitle">安装 MySQL(阿里云服务器 一定要 在安全组 设置一下 3306 端口)</h3>
 						<div class="TechnicalAreaCon">
-							<p>1 . 在 Android SDK Location 选择一个自己创建 sdk 文件夹(这里可能会安装一些东西 直接安装就好)->apply->ok;</p>
-							<p>2 . 在 SDK Platforms 窗口中 选择Show Package Details 然后在Android 6.0 (Marshmallow)中勾选Android SDK Platform 23;</p>
-							<p>3 . 在SDK Tools窗口中，选择Show Package Details 然后在Android SDK Build Tools中勾选Android SDK Build-Tools 23.0.1;</p>
-							<p>4 . 点击ok;</p>
-						</div>
-					</div>
-					
-					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">环境变量配置</h3>
-						<div class="TechnicalAreaCon">
-							<p>1 . 打开控制面板 -> 系统和安全 -> 系统 -> 高级系统设置 -> 高级 -> 环境变量 -> 新建;</p>
-							<p>2 . 添加的第一个环境变量: 变量名->ANDROID_HOME;  变量值:你的 sdk 所在位置 (根目录);</p>
-							<p>3 . 添加的第二个环境变量: 点击path 在原有的 一大串变量后面 加上 ;F:\sdk\tools  (这里的分号一定要有,路径就是你sdk文件夹下的 tools文件夹);</p>
-							<p>4 . 添加的第三个环境变量: 点击path 在原有的 一大串变量后面 加上 ;F:\sdk\platform-tools  (这里的分号一定要有,路径就是你sdk文件夹下的 platform-tools文件夹);</p>
-						</div>
-					</div>
-				
-					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">模拟器安装 (个人使用夜神模拟器)</h3>
-						<div class="TechnicalAreaCon">
-							<p>模拟器下载地址 : https://www.yeshen.com/;</p>
-							<p>打开夜神模拟器后,在 cmd 输入 adb devices 如果没有设备信息, 则输入 : adb connect 127.0.0.1:6200;</p>
-						</div>
-					</div>
-				
-					<div class="TechnicalArea">
-						<h3 class="TechnicalAreaTitle">react-native 安装</h3>
-						<div class="TechnicalAreaCon">
-							<p>cmd输入  : npm install -g yarn react-native-cli;</p>
-							<p>cmd输入  : react-native init AwesomeProject (初始化一个项目 记住 不要带中文 路径也不要有中文);</p>
-							<p>cmd输入  : cd AwesomeProject (切换到项目目录)</p>
-							<p>cmd输入  : react-native run-android (编译工程 也是就是开启项目 注意:这时候 要把你那个安卓模拟器打开 方便看效果);</p>
-							<p>上边的编译过程 可能会 很慢 也可以 睡一觉</p>
-							<p>注意: 夜神模拟器会在 编译之后 会红屏报错 , 这里需要在 Dev Settings->Debug server host 设置ip 格式 : ip:8081,如(192.168.1.1:8081);</p>
-							<p>重新打开App 如果 安卓模拟器 上显示了 react-native 的欢迎页面说明咱们成功了</p>
+							<p>查看可用版本 : yum list | grep mysql;</p>
+							<p>在centOS 7 安装 MySQL : rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm;</p>
+							<p>查看当前可用资源 : yum repolist enabled | grep "mysql.-community.";</p>
+							<p>安装 : yum -y install mysql-community-server;</p>
+							<p>MySQL基础配置 : <br />systemctl enable mysqld(添加到开机启动);<br />  systemctl start mysqld(启用进程); <br />mysql_secure_installation(配置密码之类的);</p>
+							<p><img src="../assets/MySQL.png"/></p>
+							<p>配置远程连接 : grant all privileges on *.* to 'root'@'%' identified by '密码';</p>
+							<p>刷新数据库 : flush privileges;</p>
+							<p>检测是否开启3306端口 : netstat -tunlp</p>
 						</div>
 					</div>
 				</div>
@@ -122,6 +134,9 @@
 				.RightCon{
 					h4{
 						color: #c7c7c7;
+						em{
+							font-size: 12px;
+						}
 					}
 					.TechnicalAreaTitle{
 						color: #6f8fd2;

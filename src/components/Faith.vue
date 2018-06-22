@@ -44,7 +44,7 @@ import axios from 'axios'
 				.then(response=>{
 					let leng=response.data.length;
 					let num=Math.ceil(Math.random()*leng-1);
-					console.log(response.data[num]);
+					/*console.log(response.data[num]);*/
 					this.motto.cn=response.data[num].cn;
 					this.motto.en=response.data[num].en;
 					this.motto.author=response.data[num].author;

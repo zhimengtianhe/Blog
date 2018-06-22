@@ -261,3 +261,27 @@ CREATE TABLE `Article_con` (
 
 
 INSERT INTO `Article_con` VALUES ('1', '安装', 'npm install');
+
+
+
+upstream nodeweb-server {
+    server localhost:8081;
+}
+server {
+    listen       80 default_server;
+    listen       [::]:80 default_server;
+    server_name  39.106.188.169;
+    root         /www;
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
+
+    location / {
+        root     /;
+        proxy_pass http://nodeweb-server;
+        proxy_redirect off;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-NginX-Proxy true;
+    }
+}

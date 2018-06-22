@@ -38,7 +38,7 @@
 			Apost:function(){
 				axios.post('/api/user/Article_con',this.msg)
 				.then((response)=>{
-                    console.log(response.data);
+                   /* console.log(response.data);*/
                     this.con=response.data[0].content;
                 })
                 .catch((error)=>{
@@ -66,6 +66,9 @@
 				.RightCon{
 					h4{
 						color: #c7c7c7;
+						em{
+							font-size: 12px;
+						}
 					}
 					.TechnicalAreaTitle{
 						color: #6f8fd2;

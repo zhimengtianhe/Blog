@@ -40,7 +40,7 @@
 				axios.post('/api/user/Article')
 				.then(response=>{
 					this.Articles.push(response.data);
-					console.log(response.data);
+					/*console.log(response.data);*/
 				})
 				.catch(error=>{
 					console.log(error);
