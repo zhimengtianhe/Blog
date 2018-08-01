@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 // 连接数据库
-//39.106.188.169
+//202.182.111.4
 const db = mysql.createPool({
-    host:'localhost',
+    host:'202.182.111.4',
 	user:'root',
 	password:'hanchao',
 	database:'vue_study',
@@ -32,6 +32,8 @@ let $sql = {
     	Article_con: 'SELECT * from Article where id = ?',    
     }
 }
+
+// 注册
 router.post('/addUser', (req, res) => {
 	
     let sql_name = $sql.user.select_name

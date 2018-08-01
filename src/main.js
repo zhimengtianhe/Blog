@@ -11,8 +11,24 @@ Vue.use(VueRouter)
 /* eslint-disable no-new */
 
 const router = new VueRouter({
+	mode: 'history',
 	routes
 })
+
+router.beforeEach((to,from,next)=>{
+	if(to.meta.requireAuth){
+		if(sessionStorage.getItem('token')){
+			next();
+		}else{
+			next({
+				path:'/Login'
+			})
+		}
+	}else{
+		next();
+	}
+})
+
 new Vue({
   router,
 //template: '<App/>',

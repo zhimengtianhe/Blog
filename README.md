@@ -25,7 +25,7 @@ systemctl status mysqld
 配置远程连接
 grant all privileges on *.* to 'root'@'%' identified by 'hanchao';
 
-
+GRANT ALL PRIVILEGES ON . TO 'root'@'%' IDENTIFIED BY 'hanchao' WITH GRANT OPTION;
 
 grant select,update,insert,delete on *.* to root@39.106.188.169 identified by "hanchao";
 
@@ -284,4 +284,19 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-NginX-Proxy true;
     }
+}
+
+
+
+server {
+        listen      8080;
+        server_name  webhanchao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root /Images;
+        }
 }

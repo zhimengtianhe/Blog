@@ -11,16 +11,17 @@ export default [{
     children: [ //二级路由。对应App.vue
        {
             path: '',
-            redirect: '/Login'
-        },
-        {
-            path: '/Login',
-            component: Login
+            redirect: '/Faith'
         },
         {
             path: '/Faith',
             component: Faith
         },
+        {
+            path: '/Login',
+            component: Login
+        },
+        
         {
             path: '/Index',
             component: Index
@@ -31,7 +32,10 @@ export default [{
         },
         {
             path:'/Personal',
-            component:Personal
+            component:Personal,
+            meta:{
+            	requireAuth:true
+            }
         },
         {
         	path:'/Article',
